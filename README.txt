@@ -95,8 +95,7 @@ Market prices will be updated every minute (and not at every request) to reduce 
 
 Users should first open a new portfolio to recieve a client ID and only then execute the other actions. Any other order of operations will be met with an error. Updates to an existing stock portfolio is done by sending the users totally new portfolio (NOT by sending a 'delta' portfolio or list of changes). 
 
-Please note, the application is missing a persistence layer meaning that if the server is shut down, then all user information is lost. The developer will continue work on the system and attempt to implement a persistence layer based on MongoDB.
-
+Persistence layer added.
 
 ## Built With
 
