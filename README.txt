@@ -12,10 +12,8 @@ UsersPortfolios.java
 
 Please make sure that "pom.xml" is in the package so you get all the dependencies.
 
-
-The project is represents a partial solution (does not fulfill all the technical requirements) for the Fyber Junior Software Engineer challenge.
-
 Indeed, the project was complex. Solving this project exposed me to the following new technologies & concepts:
+
 * Apache Tomcat
 * Spring Boot
 * Spring MVC
@@ -24,7 +22,8 @@ Indeed, the project was complex. Solving this project exposed me to the followin
 * Postman
 * Jmeter
 * External APIs (IEX trading)
-and still I was able to get to the point that I did. Thank you for the challenge, and I hope that I was able to demonstrate significant learning skills.
+
+and still I was able to get to the point that I did.
 
 
 ## Getting Started
@@ -59,15 +58,14 @@ Configure the requests as follows:
 
 Request to                                   Request Method       @Params  Value     	 Format               
 ---------------------------------------------------------------------------------------------------------
-localhost:8080/newuser                        POST              Body             		 application/json
+localhost:8080/newuser                        POST              Body             	 application/json
 
-localhost:8080/existinguser/updatestocks      POST				@Param     clientID   	 number
-																Body					 application/json
-																
-localhost:8080/existinguser/getvalue		  GET				@Param	   clientID		 number
-localhost:8080/buying/performance			  GET				@Param     clientID		 number
-localhost:8080/buying/stability				  GET				@Param     clientID		 number
-localhost:8080/buying/best					  GET				@Param	   clientID		 number
+localhost:8080/existinguser/updatestocks      POST		@Param     clientID   	 number
+								Body			 application/json
+localhost:8080/existinguser/getvalue	      GET		@Param	   clientID	 number
+localhost:8080/buying/performance	      GET		@Param     clientID      number
+localhost:8080/buying/stability		      GET		@Param     clientID	 number
+localhost:8080/buying/best		      GET		@Param	   clientID	 number
 
 
 A request that does not conform to the specification listed above will be met with an error, though the server ~will not~ should not crash. The server is fairly resilient to crashes.
@@ -106,7 +104,7 @@ Please note, the application is missing a persistence layer meaning that if the 
 
 ## Authors
 
-* Noah Lerner - Junior Software Engineer candidate
+* Noah Lerner - Junior Software Engineer Candidate
 
 ## Acknowledgments
 
