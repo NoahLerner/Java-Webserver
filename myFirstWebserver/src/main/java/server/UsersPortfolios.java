@@ -1,4 +1,5 @@
 package server;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,11 +31,12 @@ import pl.zankowski.iextrading4j.client.rest.request.stocks.OhlcMarketRequestBui
 @RestController
 public class UsersPortfolios {
 
-    private final AtomicLong counter = new AtomicLong();
+    private final backupFiles backup = new backupFiles();
+    private final AtomicLong counter = new AtomicLong(backup.readLastID());
     
     // Our database will be a nested map where each user (identified by their ID) has a portfolio
     //      represented by a map of symbols and the volume
-    private ConcurrentHashMap<Long, ConcurrentHashMap<String, Double>> portfolios = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Long, ConcurrentHashMap<String, Double>> portfolios = backup.readPortfoliosBackup();
     private final IEXTradingClient iexTradingClient = IEXTradingClient.create();
     
     // the market snapshot at time timestamp
@@ -63,8 +65,15 @@ public class UsersPortfolios {
         // give the user an ID & enter him into the database only after we have his portfolio
         Long newUser = counter.incrementAndGet();
         this.portfolios.put(newUser, stocks);
-        // TODO: call persistence layer to update
-        
+
+        try {
+            backup.writeLastID(newUser);
+            backup.updatePortfoliosBackup(portfolios);
+        } catch (IOException | InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("Huge error");
+        }
         this.validateUser(newUser);
         return newUser;
     }
@@ -117,7 +126,14 @@ public class UsersPortfolios {
         
         this.portfolios.replace(clientID, stocks);
         // TODO: call persistence layer to update
-        
+        try {
+            backup.updatePortfoliosBackup(portfolios);
+        } catch (InterruptedException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("Portfolio not updated");
+        }
+
         return clientID;
     }
       
